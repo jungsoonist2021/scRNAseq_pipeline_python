@@ -29,6 +29,24 @@ The data processing pipeline is broken down as follows :
 10. Cluster Purity analysis 
 
 
+Hardware Requirements:
+This program was run using a Samsung DESKTOP 2PCJ0FG with 16 GB of RAM. It is not known whether devices with less RAM can successfully run the program. 
+
+This program uses the following python libraries: 
+1. Sklearn
+2. Matplotlib
+3. Pandas
+4. Csv
+5. Gzip 
+6. Os
+7. Scipy.io 
+8. Numpy
+9. Seaborn
+10. Scanpy
+11. scoreCT
+
+
+
 
 
 
