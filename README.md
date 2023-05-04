@@ -20,7 +20,7 @@ The data processing pipeline is broken down as follows :
 
 6. Leiden algorithm for community detection 
 
-7. Sub-clustering of Centroid partition: PAGA : mention PCA and UMAP run again 
+7. Sub-clustering of Centroid partition: PAGA 
 
 8. scoreCT 
 
