@@ -8,15 +8,25 @@ The purpose of the program is to label cell identities represented within a scRN
 
 The data processing pipeline is broken down as follows : 
 
-1.Obtaining the dataset as an anndata object 
-2.Preprocessing: Filtering out lowly expressed genes 
-3.Batch Correction 
-4.PCA 
-5.Dimensionality Reduction with UMAP
-6.Leiden algorithm 
-7.Sub-clustering of Centroid partition: PAGA : mention PCA and UMAP run again 
-8.scoreCT 
-9.Generation of dot plots for gene subsets of interest 
+1. Obtaining the dataset as an anndata object 
+
+2. Preprocessing: Filtering out lowly expressed genes 
+
+3. Batch Correction 
+
+4. PCA 
+
+5. Dimensionality Reduction with UMAP
+
+6. Leiden algorithm for community detection 
+
+7. Sub-clustering of Centroid partition: PAGA : mention PCA and UMAP run again 
+
+8. scoreCT 
+
+9. Generation of dot plots for gene subsets of interest 
+
+10. Cluster Purity analysis 
 
 
 
