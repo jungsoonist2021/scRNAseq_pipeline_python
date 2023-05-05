@@ -36,7 +36,7 @@ sc.tl.umap(adatawpca, min_dist=0.3, spread=1, random_state=1, n_components= 2)
 
 
 #%%
-#run leiden clustering algoirthm
+#run leiden clustering algorithm
 sc.tl.leiden(adatawpca, resolution = 1.5)
 sc.pl.umap(adatawpca, color='leiden')
 sc.pl.umap(adatawpca, color='leiden', legend_loc = 'on data')
@@ -127,14 +127,17 @@ adata_sub2.obs["leiden"] = "0_" + adata_sub2.obs["leiden"].astype(str)
 sc.pl.umap(adata_sub2, color='leiden')
 
 #%%
+import matplotlib
+
 #newly subclustered clusters are updated into main list of leiden clusters
 adatawpca.obs["leiden"] = adatawpca.obs["leiden"].astype(str)
 adatawpca.obs["leiden"].update(adata_sub2.obs["leiden"])
 
 sc.pl.umap(adatawpca, color='leiden')
+sc.pl.umap(adatawpca ,color='leiden',palette=list(matplotlib.colors.CSS4_COLORS.values()))
 
 #%%
-#find cell_type composition of all 110 clusters
+#find cell_type composition of all 109 clusters
 import pandas as pd
 
 
@@ -257,11 +260,11 @@ subset_match_neighbor = adatawpca[adatawpca.obs['scoreCT'].astype(str)==adatawpc
 
 #%%
 #get number of correctly labeled cell_types
-print(subset_match_neighbor.obs['scoreCT']) # 63 /55 (resolutin 1.5)/ 44
+print(subset_match_neighbor.obs['scoreCT']) # 61
 
 #%%
 #number of cell_types that scoreCT identified
-print(adatawpca.obs['scoreCT']) # 77
+print(adatawpca.obs['scoreCT']) # 75
 
 
 #%%
@@ -279,13 +282,6 @@ avg2 = cluster_counts2.mean()
 
 #%%
 
-#69 clusters, 63 cell types: there are some clusters that were labeled the same..
-#clusters (16,38),(AS1)
-# (0_13, 15), (RMF)
-#(0_1, 0_11) (SIA)
-# (0_5, 0_31) (SIB)
-#(0_20,0_25) (URA)
-#(1,14) (VC)
 
 #cell_type composition analysis for correctly labeled clusters
 
@@ -309,7 +305,7 @@ tmp2_filtered_transposed = tmp2_filtered.T
 
 count3 = tmp2_filtered_transposed[tmp2_filtered_transposed==1].count()
 
-print(count3.value_counts()) # 5 100% pure clusters
+print(count3.value_counts()) # 3 100% pure clusters
 
 #%%
 
@@ -349,7 +345,7 @@ neuropeptide_genes_not_found = ["WBGene00003862", "WBGene00003863", "WBGene00005
 neuropeptide_wormbase_identifier_list = list(set(neuropeptide_wormbase_identifier_list_full) - set(neuropeptide_genes_not_found))
 
 sc.pl.dotplot(
-    subset0,
+    subset_match_neighbor,
     groupby="scoreCT",
     var_names = homeobox_wormbase_identifier_list,
     standard_scale="var",  # standard scale: normalize each gene to range from 0 to 1
@@ -358,9 +354,7 @@ sc.pl.dotplot(
     save = "Mean Expression of Homeobox Genes per Cluster Dotplot.png"
 )
 
-sc.pl.matrixplot(subset0, var_names = homeobox_wormbase_identifier_list, groupby ='scoreCT', use_raw=False, vmax = 6,title = "Mean Expression of Homeobox Genes per Cluster",swap_axes = True,save = "Mean Expression of Homeobox Genes per Cluster Matrixplot.png")
-
-
+sc.pl.matrixplot(subset_match_neighbor, var_names = homeobox_wormbase_identifier_list, groupby ='scoreCT', use_raw=False, vmax = 6,title = "Mean Expression of Homeobox Genes per Cluster",swap_axes = True,save = "Mean Expression of Homeobox Genes per Cluster Matrixplot.png")
 
 
 
